@@ -142,8 +142,7 @@ class PseudoregaliaRulesHelpers:
                 or state.count("Progressive Dream Breaker", self.player) >= 3)
 
     def knows_obscure(self, state) -> bool:
-        """True when Obscure Logic is enabled, False when it isn't."""
-        raise Exception("knows_obscure() was not set")
+        return self.world.options.obscure_tricks.value
 
     def set_pseudoregalia_rules(self) -> None:
         multiworld = self.world.multiworld
