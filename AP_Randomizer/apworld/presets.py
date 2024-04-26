@@ -8,41 +8,28 @@ from .options import * # think this is required for custom options ?
 pseudoregalia_options_presets: Dict[str, Dict[str, Any]] = {
     # saw pseudoregalia_options, so this should follow the proper naming scheme ?
     
-    # Extra easy settings
-    "Easy": {
-        "progression_balancing": 99,
-        "logic_level": "normal",
-    },
-    
     # As vanilla as it can get
     "Normal": {
-        "progression_balancing": 50,
         "logic_level": "normal",
     },
     
     # Bit less progression
     "Hard": {
-        "progression_balancing": 40,
         "logic_level": "hard",
     },
     
-    # low progression & split greaves, death link enabled as deaths are not that punishing
+    # split greaves for 1-2 kick tricks
     "Expert": {
-        "progression_balancing": 30,
         "logic_level": "expert",
         "obscure_logic": "true",
         "split_sun_greaves": "true",
-        "death_link": "true",
     },
     
     # Think logic on its own should make up most of the challenge, even with similar settings to expert
-    # 0-20 progression wouldn't really make it any harder
     "Lunatic": {
-        "progression_balancing": 30,
         "logic_level": "lunatic",
         "obscure_logic": "true",
         "split_sun_greaves": "true",
-        "death_link": "true",
     },
 
     # Everything randomized
@@ -54,6 +41,5 @@ pseudoregalia_options_presets: Dict[str, Dict[str, Any]] = {
         "progressive_breaker": "random",
         "progressive_slide": "random",
         "split_sun_greaves": "random",
-        "death_link": "random",
     },
 }
