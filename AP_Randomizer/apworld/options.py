@@ -1,4 +1,5 @@
-from Options import Toggle, Choice, DefaultOnToggle, DeathLink
+from dataclasses import dataclass
+from Options import Toggle, Choice, DefaultOnToggle, DeathLink, PerGameCommonOptions
 from .constants.difficulties import NORMAL, HARD, EXPERT, LUNATIC
 
 
@@ -62,11 +63,43 @@ class SplitSunGreaves(Toggle):
     display_name = "Split Sun Greaves"
 
 
-pseudoregalia_options = {
-    "logic_level": LogicLevel,
-    "obscure_logic": ObscureLogic,
-    "progressive_breaker": ProgressiveBreaker,
-    "progressive_slide": ProgressiveSlide,
-    "split_sun_greaves": SplitSunGreaves,
-    "death_link": DeathLink,
-}
+class SplitClingGem(Toggle):
+    """
+    Replaces Cling Gem with three individual Progressive Gems that have two clings each.
+    """
+    display_name = "Split Cling Gem"
+
+
+class ShuffleGoatlings(Toggle):
+    """
+    Adds Goatlings to the location pool.
+    """
+    display_name = "Shuffle Goatlings"
+
+
+class ShuffleNotes(Toggle):
+    """
+    Adds Notes to the location pool.
+    """
+    display_name = "Shuffle Notes"
+
+
+class ShuffleChairs(Toggle):
+    """
+    Adds Chairs to the location pool.
+    """
+    display_name = "Shuffle Chairs"
+
+
+@dataclass
+class PseudoregaliaOptions(PerGameCommonOptions):
+    logic_level: LogicLevel
+    obscure_logic: ObscureLogic
+    progressive_breaker: ProgressiveBreaker
+    progressive_slide: ProgressiveSlide
+    split_sun_greaves: SplitSunGreaves
+    split_gem: SplitClingGem
+    shuffle_goatlings: ShuffleGoatlings
+    shuffle_notes: ShuffleNotes
+    shuffle_chairs: ShuffleChairs
+    death_link: DeathLink
