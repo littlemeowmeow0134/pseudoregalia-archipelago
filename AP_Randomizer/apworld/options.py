@@ -63,6 +63,13 @@ class SplitSunGreaves(Toggle):
     display_name = "Split Sun Greaves"
 
 
+class SplitClingGem(Toggle):
+    """
+    Replaces Cling Gem with four individual Progressive Gems.
+    """
+    display_name = "Split Cling Gem"
+
+
 class ShuffleGoatlings(Toggle):
     """
     Adds Goatlings to the location pool.
@@ -91,6 +98,7 @@ class PseudoregaliaOptions(PerGameCommonOptions):
     progressive_breaker: ProgressiveBreaker
     progressive_slide: ProgressiveSlide
     split_sun_greaves: SplitSunGreaves
+    split_gem: SplitClingGem
     shuffle_goatlings: ShuffleGoatlings
     shuffle_notes: ShuffleNotes
     shuffle_chairs: ShuffleChairs

@@ -360,8 +360,11 @@ class PseudoregaliaRulesHelpers:
         return state.has("Sunsetter", self.player)
 
     def has_gem(self, state, count: int = 6) -> bool:
-        # TODO update for split gem
-        return state.has("Cling Gem", self.player)
+        clings: int = 0
+        if state.has("Cling Gem", self.player):
+            clings += 6
+        clings += state.count("Progressive Cling", self.player)
+        return clings >= count
 
     def can_bounce(self, state) -> bool:
         return self.has_breaker(state) and state.has("Ascendant Light", self.player)

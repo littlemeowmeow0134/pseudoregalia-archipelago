@@ -41,7 +41,8 @@ item_table: Dict[str, PseudoregaliaItemData] = {
         can_create=lambda world: not bool(world.options.progressive_breaker)),
     "Cling Gem": PseudoregaliaItemData(
         code=2365810008,
-        classification=ItemClassification.progression),
+        classification=ItemClassification.progression,
+        can_create=lambda world: not bool(world.options.split_gem)),
     "Ascendant Light": PseudoregaliaItemData(
         code=2365810009,
         classification=ItemClassification.progression),
@@ -111,6 +112,10 @@ item_table: Dict[str, PseudoregaliaItemData] = {
         code=2365810028,
         classification=ItemClassification.progression,
         can_create=lambda world: bool(world.options.progressive_breaker)),
+    "Progressive Cling": PseudoregaliaItemData(
+        code=2365810029,
+        classification=ItemClassification.progression,
+        can_create=lambda world: bool(world.options.split_gem)),
 
     "Unlocked Door": PseudoregaliaItemData(
         classification=ItemClassification.useful),
@@ -127,6 +132,7 @@ item_frequencies = {
     "Health Piece": 16,
     "Progressive Slide": 2,
     "Air Kick": 4,
+    "Progressive Cling": 6,
     "Progressive Dream Breaker": 2,  # Will need to change this later when dream breaker stops being locked to vanilla
 }
 
