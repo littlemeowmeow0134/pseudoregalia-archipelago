@@ -63,6 +63,27 @@ class SplitSunGreaves(Toggle):
     display_name = "Split Sun Greaves"
 
 
+class ShuffleGoatlings(Toggle):
+    """
+    Adds Goatlings to the location pool.
+    """
+    display_name = "Shuffle Goatlings"
+
+
+class ShuffleNotes(Toggle):
+    """
+    Adds Notes to the location pool.
+    """
+    display_name = "Shuffle Notes"
+
+
+class ShuffleChairs(Toggle):
+    """
+    Adds Chairs to the location pool.
+    """
+    display_name = "Shuffle Chairs"
+
+
 @dataclass
 class PseudoregaliaOptions(PerGameCommonOptions):
     logic_level: LogicLevel
@@ -70,4 +91,7 @@ class PseudoregaliaOptions(PerGameCommonOptions):
     progressive_breaker: ProgressiveBreaker
     progressive_slide: ProgressiveSlide
     split_sun_greaves: SplitSunGreaves
+    shuffle_goatlings: ShuffleGoatlings
+    shuffle_notes: ShuffleNotes
+    shuffle_chairs: ShuffleChairs
     death_link: DeathLink

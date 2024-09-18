@@ -9,36 +9,36 @@ class PseudoregaliaItem(Item):
 class PseudoregaliaItemData(NamedTuple):
     code: int = None
     classification: ItemClassification = ItemClassification.filler
-    can_create: Callable[[MultiWorld, int], bool] = lambda multiworld, player: True
+    can_create: Callable[[MultiWorld, int], bool] = lambda world: True
 
 
 item_table: Dict[str, PseudoregaliaItemData] = {
     "Dream Breaker": PseudoregaliaItemData(
         code=2365810001,
         classification=ItemClassification.progression,
-        can_create=lambda multiworld, player: not bool(multiworld.progressive_breaker[player])),
+        can_create=lambda world: not bool(world.options.progressive_breaker)),
     "Indignation": PseudoregaliaItemData(
         code=2365810002,
         classification=ItemClassification.useful),
     "Sun Greaves": PseudoregaliaItemData(
         code=2365810003,
         classification=ItemClassification.progression,
-        can_create=lambda multiworld, player: not bool(multiworld.split_sun_greaves[player])),
+        can_create=lambda world: not bool(world.options.split_sun_greaves)),
     "Slide": PseudoregaliaItemData(
         code=2365810004,
         classification=ItemClassification.progression,
-        can_create=lambda multiworld, player: not bool(multiworld.progressive_slide[player])),
+        can_create=lambda world: not bool(world.options.progressive_slide)),
     "Solar Wind": PseudoregaliaItemData(
         code=2365810005,
         classification=ItemClassification.progression,
-        can_create=lambda multiworld, player: not bool(multiworld.progressive_slide[player])),
+        can_create=lambda world: not bool(world.options.progressive_slide)),
     "Sunsetter": PseudoregaliaItemData(
         code=2365810006,
         classification=ItemClassification.progression),
     "Strikebreak": PseudoregaliaItemData(
         code=2365810007,
         classification=ItemClassification.progression,
-        can_create=lambda multiworld, player: not bool(multiworld.progressive_breaker[player])),
+        can_create=lambda world: not bool(world.options.progressive_breaker)),
     "Cling Gem": PseudoregaliaItemData(
         code=2365810008,
         classification=ItemClassification.progression),
@@ -48,12 +48,12 @@ item_table: Dict[str, PseudoregaliaItemData] = {
     "Soul Cutter": PseudoregaliaItemData(
         code=2365810010,
         classification=ItemClassification.progression,
-        can_create=lambda multiworld, player: not bool(multiworld.progressive_breaker[player])),
+        can_create=lambda world: not bool(world.options.progressive_breaker)),
 
     "Heliacal Power": PseudoregaliaItemData(
         code=2365810011,
         classification=ItemClassification.progression,
-        can_create=lambda multiworld, player: not bool(multiworld.split_sun_greaves[player])),
+        can_create=lambda world: not bool(world.options.split_sun_greaves)),
     "Aerial Finesse": PseudoregaliaItemData(
         code=2365810012,
         classification=ItemClassification.filler),
@@ -102,15 +102,15 @@ item_table: Dict[str, PseudoregaliaItemData] = {
     "Progressive Slide": PseudoregaliaItemData(
         code=2365810026,
         classification=ItemClassification.progression,
-        can_create=lambda multiworld, player: bool(multiworld.progressive_slide[player])),
+        can_create=lambda world: bool(world.options.progressive_slide)),
     "Air Kick": PseudoregaliaItemData(
         code=2365810027,
         classification=ItemClassification.progression,
-        can_create=lambda multiworld, player: bool(multiworld.split_sun_greaves[player])),
+        can_create=lambda world: bool(world.options.split_sun_greaves)),
     "Progressive Dream Breaker": PseudoregaliaItemData(
         code=2365810028,
         classification=ItemClassification.progression,
-        can_create=lambda multiworld, player: bool(multiworld.progressive_breaker[player])),
+        can_create=lambda world: bool(world.options.progressive_breaker)),
 
     "Unlocked Door": PseudoregaliaItemData(
         classification=ItemClassification.useful),

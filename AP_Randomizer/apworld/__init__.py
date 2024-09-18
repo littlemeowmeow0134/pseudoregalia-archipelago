@@ -24,28 +24,38 @@ class PseudoregaliaWorld(World):
     options_dataclass = PseudoregaliaOptions
     options: PseudoregaliaOptions
 
+    def get_filler_item_name(self):
+        return "Professionalism"  # TODO - make a real filler item lol
+
     def create_item(self, name: str) -> PseudoregaliaItem:
         data = item_table[name]
         return PseudoregaliaItem(name, data.classification, data.code, self.player)
 
     def create_items(self):
+        item_pool = []
         for item_name, item_data in item_table.items():
             if (item_name == "Dream Breaker"):
                 continue  # Really skrunkled way of just adding the one locked breaker to the pool for now.
-            if (item_data.code and item_data.can_create(self.multiworld, self.player)):
+            if (item_data.code and item_data.can_create(self)):
                 item_count = 1
                 if (item_name in item_frequencies):
                     item_count = item_frequencies[item_name]
                 for count in range(item_count):
-                    self.multiworld.itempool.append(
+                    item_pool.append(
                         PseudoregaliaItem(item_name, item_data.classification, item_data.code, self.player))
+
+        total_locations = len(self.multiworld.get_unfilled_locations(self.player))
+        created_item_count = len(item_pool)
+        assert created_item_count <= total_locations, "more locations need to be created; this is a dev issue"
+        item_pool += [self.create_filler() for _ in range(total_locations - created_item_count)]
+        self.multiworld.itempool += item_pool
 
     def create_regions(self):
         for region_name in region_table.keys():
             self.multiworld.regions.append(Region(region_name, self.player, self.multiworld))
 
         for loc_name, loc_data in location_table.items():
-            if not loc_data.can_create(self.multiworld, self.player):
+            if not loc_data.can_create(self):
                 continue
             region = self.multiworld.get_region(loc_data.region, self.player)
             new_loc = PseudoregaliaLocation(self.player, loc_name, loc_data.code, region)
@@ -59,7 +69,7 @@ class PseudoregaliaWorld(World):
 
         # Place locked locations.
         for location_name, location_data in self.locked_locations.items():
-            if not location_data.can_create(self.multiworld, self.player):
+            if not location_data.can_create(self):
                 continue
 
             # Doing this really stupidly because breaker's locking will change after logic rework is done
@@ -76,7 +86,7 @@ class PseudoregaliaWorld(World):
         return {"slot_number": self.player,
                 "death_link": self.options.death_link.value,
                 "logic_level": self.options.logic_level.current_key,
-                "obscure_tricks": self.options.obscure_tricks.value,
+                "obscure_logic": self.options.obscure_logic.value,
                 "progressive_slide": self.options.progressive_slide.value,
                 "progressive_breaker": self.options.progressive_breaker.value,
                 "split_sun_greaves": self.options.split_sun_greaves.value, }

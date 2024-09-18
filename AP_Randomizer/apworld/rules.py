@@ -80,6 +80,276 @@ class PseudoregaliaRulesHelpers:
             "Tower Remains - Atop The Tower": lambda state: True,
         }
 
+        if world.options.shuffle_goatlings:
+            self.location_rules.update({
+                # Goatlings
+                # "Dilapidated Dungeon - the goatling who fell out his cage":
+                # #Lock::None,
+                # "Castle Sansa - the goatling lamenting the skill issue of players who need a map":
+                # #Lock::None,
+                # "Castle Sansa - the goatling who wants to lick the checkpoint":
+                # #Lock::None,
+                # "Castle Sansa - the goatling who wanted to see the armour display":
+                # #Lock::None,
+                "Castle Sansa - the goatling about to jump into the haze": lambda state:
+                    self.has_breaker(state)
+                    or (self.has_plunge(state)
+                        and self.trick("Knowledge", "Normal")),  # TODO double check this is equivilant
+                # Any(&[ // Just need to break the wall.. nothing new
+                #     Powerup(A::DreamBreaker),
+                #     All(&[
+                #         Powerup(A::Sunsetter),
+                #         Trick(T::Knowledge, D::Normal),
+                #     ])
+                # ]),
+                "Castle Sansa - the goatling that calls you bubble girl": lambda state:
+                    self.get_kicks(state, 1)
+                    or self.has_gem(state, 4),
+                # Any(&[
+                #     Powerup(A::HeliacalPower),
+                #     Powerup(A::ClingGem(4)),
+                # ]),
+                #  "Castle Sansa - the goatling in the gazebo":
+                #  #Lock::None,
+                #  "Sansa Keep - the goatling sad about the lack of furniture":
+                #  #Lock::None,
+                #  "Sansa Keep - the goatling collapsing out of reality":
+                #  #Lock::None,
+                "Empty Bailey - the goatling who's hiding": lambda state:
+                    self.has_slide(state),
+                # Powerup(A::Slide), // Theres another way to get TO the item, not putting it in since its a one way unless it is slide though...
+                #  "Twilight Theatre - the goatling who can eat 20 beans at least":
+                #  #Lock::None,
+                #  "Twilight Theatre - the goatling who thought the theatre was safe":
+                #  #Lock::None,
+                #  "Twilight Theatre - the first goatling who really wanted to see the show":
+                #  #Lock::None,
+                #  "Twilight Theatre - the second goatling who really wanted to see the show":
+                #  #Lock::None,
+                "Twilight Theatre - the goatling that will kill again": lambda state:
+                    any([
+                        self.can_slidejump(state) and self.get_kicks(state, 1),
+                        self.get_kicks(state, 3),
+                        self.has_gem(state, 6),
+                        ]),
+                # Any(&[
+                #     All(&[Powerup(A::SolarWind), Powerup(A::HeliacalPower)]),
+                #     Powerup(A::SunGreaves),
+                #     Powerup(A::ClingGem(6))
+                # ]),
+            })
+
+        if world.options.shuffle_chairs:
+            self.location_rules.update({
+                # Chairs
+                # "Castle Sansa - first chair next to the goatling who wants to lick the checkpoint":
+                # # locks: Lock::None,
+                # "Castle Sansa - second chair next to the goatling who wants to lick the checkpoint":
+                # # locks: Lock::None,
+                # "Castle Sansa - third chair next to the goatling who wants to lick the checkpoint":
+                # # locks: Lock::None,
+                # "Castle Sansa - the chair in the gazebo":
+                # # locks: Lock::None,
+                # "Listless Library - the chair at the entrance":
+                # # locks: Lock::None,
+                # "Listless Library - the chair after the normal sun greaves location":
+                # # locks: Lock::None,
+                "Listless Library - the chair next to the egg nest": lambda state:
+                    any([
+                        self.get_kicks(state, 3),
+                        self.has_gem(state, 4),
+                        self.can_slidejump(state)
+                        ]),
+                # locks: Any(&[
+                #     Powerup(A::SunGreaves),
+                #     Powerup(A::ClingGem(4)),
+                #     Powerup(A::SolarWind),
+                # ]),
+
+                # "Sansa Keep - the chair collapsing out of reality":
+                # # locks: Lock::None,
+
+                "Sansa Keep - the chair in the middle of the parkour": lambda state:
+                    any([
+                        all([
+                            self.can_bounce(state),
+                            any([
+                                all([
+                                    self.has_gem(state, 4),
+                                    any([self.has_plunge(state), self.get_kicks(state, 3)]),
+                                    ]),
+                                all([self.has_plunge(state), self.get_kicks(state, 3)])
+                                ]),
+                            ]),
+                        all([
+                            self.has_breaker(state),
+                            self.has_slide(state),
+                            self.can_slidejump(state),
+                            self.has_plunge(state),
+                            self.has_gem(state, 2),
+                            self.get_kicks(state, 3),
+                            ])
+                        ]),
+                # locks:  Any(&[
+                #     All(&[
+                #         Powerup(A::AscendantLight),
+                #         Any(&[
+                #             All(&[
+                #                 Powerup(A::ClingGem(4)),
+                #                 Any(&[Powerup(A::Sunsetter), Powerup(A::SunGreaves)]),
+                #             ]),
+                #             All(&[Powerup(A::Sunsetter), Powerup(A::SunGreaves)]),
+                #         ]),
+                #     ]),
+                #     All(&[
+                #         Powerup(A::DreamBreaker),
+                #         Powerup(A::Slide),
+                #         Powerup(A::SolarWind),
+                #         Powerup(A::Sunsetter),
+                #         Powerup(A::ClingGem(2)),
+                #         Powerup(A::SunGreaves),
+                #     ]),
+                # ]),
+
+                # "Twilight Theatre - first chair around the table":
+                # # TODO may need additional logic
+                # # locks: Lock::None,
+                # "Twilight Theatre - second chair around the table":
+                # # TODO may need additional logic
+                # # locks: Lock::None,
+                # "Twilight Theatre - third chair around the table":
+                # # TODO may need additional logic
+                # # locks: Lock::None,
+                # "Twilight Theatre - the chair next to the books":
+                # # TODO may need additional logic
+                # # locks: Lock::None,
+                "Twilight Theatre - the chair near the courtyard": lambda state:
+                    any([
+                        self.has_gem(state, 4),
+                        all([self.can_slidejump(state), self.get_kicks(state, 4)]),
+                    ]),
+                # TODO may need additional logic
+                # locks: Any(&[
+                #     Powerup(A::ClingGem(4)),
+                #     All(&[Powerup(A::SolarWind), Powerup(A::HeliacalPower), Powerup(A::SunGreaves)]),
+                # ]),
+
+                "Twilight Theatre - the chair in the soul cutter zone": lambda state:
+                    all([
+                        self.can_strikebreak(state),
+                        self.has_gem(state, 6),
+                        any([
+                            all([
+                                self.can_strikebreak(state),
+                                self.can_slidejump(state),
+                                self.get_kicks(state, 4),
+                                self.has_plunge(state),
+                                self.trick("ClingAbuse", "Expert"),
+                                self.trick("OneWall", "Expert"),
+                                self.trick("Movement", "Insane"),
+                                self.trick("Momentum", "Expert"),
+                            ]),
+                            all([
+                                self.can_soulcutter(state),
+                                any([
+                                    self.get_kicks(state, 1),
+                                    self.can_slidejump(state),
+                                ]),
+                            ]),
+                        ]),
+                    ]),
+                # locks:  All(&[
+                #     Powerup(A::Strikebreak),
+                #     Powerup(A::ClingGem(6)),
+                #     Any(&[
+                #         // Logic for soul cutter route w/o soulcutter
+                #         All(&[
+                #             Powerup(A::Strikebreak),
+                #             Powerup(A::SolarWind),
+                #             Powerup(A::HeliacalPower),
+                #             Powerup(A::SunGreaves),
+                #             Powerup(A::Sunsetter),
+                #             Trick(T::ClingAbuse, D::Expert),
+                #             Trick(T::OneWall, D::Expert),
+                #             Trick(T::Movement, D::Insane),
+                #             Trick(T::Momentum, D::Expert),
+                #         ]),
+                #         //with soul cutter.
+                #         All(&[
+                #             Powerup(A::SoulCutter),
+                #             Any(&[
+                #                 Powerup(A::HeliacalPower),
+                #                 Powerup(A::SolarWind)
+                #             ]),
+                #         ]),
+                #     ]),
+                # ]),
+            })
+
+        if world.options.shuffle_notes:
+            self.location_rules.update({
+                # Notes
+                "Listless Library - the note next to the egg nest": lambda state:
+                    any([
+                        self.get_kicks(state, 3),
+                        self.has_gem(state, 4),
+                        self.can_slidejump(state),
+                    ]),
+                # locks: Any(&[
+                #     Powerup(A::SunGreaves),
+                #     Powerup(A::ClingGem(4)),
+                #     Powerup(A::SolarWind),
+                # ]),
+
+                "The Underbelly - the note on a high ledge in the big room": lambda state:
+                    all([
+                        self.get_kicks(state, 1),
+                        self.has_plunge(state),
+                        any([
+                            self.has_gem(state, 4),
+                            self.get_kicks(state, 4),  # to account for the 1 already in the all clause
+                            self.can_slidejump(state),
+                        ]),
+                    ]),
+                # locks: All(&[ // Leaving as is for now.
+                #     Powerup(A::HeliacalPower),
+                #     Powerup(A::Sunsetter),
+                #     Any(&[
+                #         Powerup(A::ClingGem(6)),
+                #         Powerup(A::SunGreaves),
+                #         Powerup(A::SolarWind),
+                #     ]),
+                # ]),
+
+                "The Underbelly - the note behind the locked door": lambda state:
+                    self.has_small_keys(state),
+                # locks: Lock::SmallKey,
+
+                "The Underbelly - the note near the empty bailey entrance": lambda state:
+                    any([
+                        self.get_kicks(state, 3),
+                        all([self.get_kicks(state, 1), self.has_plunge(state)]),
+                        self.has_gem(state, 6),
+                        self.can_bounce(state),
+                        self.can_slidejump(state),
+                        all([self.get_kicks(state, 1), self.trick("ReverseKick", "Normal")]),
+                        all([self.has_plunge(state), self.trick("Movement", "Normal")]),
+                    ]),
+                # locks: Any(&[
+                #     Powerup(A::SunGreaves),
+                #     All(&[Powerup(A::HeliacalPower), Powerup(A::Sunsetter)]),
+                #     Powerup(A::ClingGem(6)),
+                #     Powerup(A::AscendantLight),
+                #     Powerup(A::SolarWind),
+                #     All(&[Powerup(A::HeliacalPower), Trick(T::ReverseKick, D::Normal)]),
+                #     All(&[Powerup(A::Sunsetter), Trick(T::Movement, D::Normal)]),
+                # ]),
+            })
+
+    def trick(self, category: str, difficullty: str):
+        # will eventually check self.world.options for the correct values
+        return True
+
     def has_breaker(self, state) -> bool:
         return state.has_any({"Dream Breaker", "Progressive Dream Breaker"}, self.player)
 
@@ -89,7 +359,8 @@ class PseudoregaliaRulesHelpers:
     def has_plunge(self, state) -> bool:
         return state.has("Sunsetter", self.player)
 
-    def has_gem(self, state) -> bool:
+    def has_gem(self, state, count: int = 6) -> bool:
+        # TODO update for split gem
         return state.has("Cling Gem", self.player)
 
     def can_bounce(self, state) -> bool:
@@ -142,7 +413,7 @@ class PseudoregaliaRulesHelpers:
                 or state.count("Progressive Dream Breaker", self.player) >= 3)
 
     def knows_obscure(self, state) -> bool:
-        return self.world.options.obscure_tricks.value
+        return self.world.options.obscure_logic.value
 
     def set_pseudoregalia_rules(self) -> None:
         multiworld = self.world.multiworld
