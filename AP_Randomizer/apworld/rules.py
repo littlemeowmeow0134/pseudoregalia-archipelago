@@ -80,6 +80,25 @@ class PseudoregaliaRulesHelpers:
             "Tower Remains - Atop The Tower": lambda state: True,
         }
 
+        # TODO unskrunkle
+        if world.options.split_gem:
+            self.location_rules.update({
+                "Tower Remains - Cling Gem 1": lambda state:
+                    self.get_kicks(state, 3),
+                "Tower Remains - Cling Gem 2": lambda state:
+                    self.get_kicks(state, 3),
+                "Tower Remains - Cling Gem 3": lambda state:
+                    self.get_kicks(state, 3),
+                "Tower Remains - Cling Gem 4": lambda state:
+                    self.get_kicks(state, 3),
+                "Tower Remains - Cling Gem 5": lambda state:
+                    self.get_kicks(state, 3),
+                "Tower Remains - Cling Gem 6": lambda state:
+                    self.get_kicks(state, 3),
+
+                })
+            del self.location_rules["Tower Remains - Cling Gem"]
+
         if world.options.shuffle_goatlings:
             self.location_rules.update({
                 # Goatlings
