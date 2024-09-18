@@ -89,13 +89,6 @@ class PseudoregaliaRulesHelpers:
                     self.get_kicks(state, 3),
                 "Tower Remains - Cling Gem 3": lambda state:
                     self.get_kicks(state, 3),
-                "Tower Remains - Cling Gem 4": lambda state:
-                    self.get_kicks(state, 3),
-                "Tower Remains - Cling Gem 5": lambda state:
-                    self.get_kicks(state, 3),
-                "Tower Remains - Cling Gem 6": lambda state:
-                    self.get_kicks(state, 3),
-
                 })
             del self.location_rules["Tower Remains - Cling Gem"]
 
@@ -382,7 +375,7 @@ class PseudoregaliaRulesHelpers:
         clings: int = 0
         if state.has("Cling Gem", self.player):
             clings += 6
-        clings += state.count("Progressive Cling", self.player)
+        clings += 2 * state.count("Progressive Clings", self.player)
         return clings >= count
 
     def can_bounce(self, state) -> bool:

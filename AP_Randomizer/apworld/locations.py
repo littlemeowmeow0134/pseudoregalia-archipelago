@@ -209,18 +209,6 @@ location_table = {
         code=2365810090,
         region="Tower Remains",
         can_create=lambda world: bool(world.options.split_gem)),
-    "Tower Remains - Cling Gem 4": PseudoregaliaLocationData(
-        code=2365810091,
-        region="Tower Remains",
-        can_create=lambda world: bool(world.options.split_gem)),
-    "Tower Remains - Cling Gem 5": PseudoregaliaLocationData(
-        code=2365810092,
-        region="Tower Remains",
-        can_create=lambda world: bool(world.options.split_gem)),
-    "Tower Remains - Cling Gem 6": PseudoregaliaLocationData(
-        code=2365810093,
-        region="Tower Remains",
-        can_create=lambda world: bool(world.options.split_gem)),
 
     # Goatlings
     "Dilapidated Dungeon - the goatling who fell out his cage": PseudoregaliaLocationData(

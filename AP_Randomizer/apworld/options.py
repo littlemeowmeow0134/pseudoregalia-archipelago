@@ -65,7 +65,7 @@ class SplitSunGreaves(Toggle):
 
 class SplitClingGem(Toggle):
     """
-    Replaces Cling Gem with four individual Progressive Gems.
+    Replaces Cling Gem with three individual Progressive Gems that have two clings each.
     """
     display_name = "Split Cling Gem"
 
