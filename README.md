@@ -26,7 +26,7 @@ Note: If you are installing on Steam Deck, please read [the Steam Deck installat
 
 4. Create a shortcut to Pseudoregalia_AP/pseudoregalia.exe and rename it "Pseudoregalia_AP" (or whatever else you like). Place it on your desktop or in your games folder or whatever.
 5. Launch the shortcut, which should open Pseudoregalia. Start a new file.
-6. Once you've loaded into dungeon, press F10 to open the in-game console, and enter your connect message:
+6. Once you've loaded into dungeon, press `enter` to open the in-game console, and enter your connect message:
 
 `/connect ip:port slotname password`
 
